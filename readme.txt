@@ -7,7 +7,7 @@ Te_Labels <1x5 cell>  % labels of test data
 
 
 Dependencies
-Matlab 2013a % please replace knnclassify function in testing.m file when another version is used.
+Matlab 2013a % please replace knnclassify function in testing.m file and knnsearch function in nearest_neighbor_index.m file when another version is used.
 
 
 Demo
