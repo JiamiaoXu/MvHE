@@ -1,0 +1,31 @@
+clear
+clc
+
+%% parameters set
+options.lambda1 = 0.05;          
+options.lambda2 = 0.2;          
+options.beta = 0.1;
+options.p1 = 1;
+options.p2 = 12;
+num_view = 5;
+options.dim = 20;
+pca_dim = 140;
+
+%% load data 
+data = load('pie.mat');
+Tr_data = data.Tr_data;      % training data    
+Tr_Labels = data.Tr_Labels;  % the labels of training data
+Te_data = data.Te_data;      % test data
+Te_Labels = data.Te_Labels;  % the labels of test data
+[Tr_data, Te_data] = preprocessing(Tr_data, Te_data, pca_dim);  %Preprocessing via Principal Component Analysis
+
+%% training
+W = proposed_method(Tr_data, Tr_Labels, num_view, options);
+
+%% testing
+Y_Test = cell(1, num_view);
+for v = 1 : num_view 
+    Y_Test{v} = W{v}.'* Te_data{v};
+end
+[accuracy, average]  = testing(Y_Test, Te_Labels);
+disp(['The accuracy is ', num2str(average)]);
